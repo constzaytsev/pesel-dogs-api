@@ -1,4 +1,6 @@
-# dogs-api
+# ПЁСЕЛЬ
+Simple breed guide application based on the Dog API 
+https://dog.ceo/dog-api/
 
 ## Project setup
 ```
