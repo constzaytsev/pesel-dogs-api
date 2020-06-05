@@ -1,18 +1,35 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <DogCells :dogs="dogs" />
+    <Observer />
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
+import Observer from '../components/Observer'
+import DogCells from '../components/DogCells'
 export default {
-  name: 'Home',
   components: {
-    HelloWorld
+    Observer,
+    DogCells
+  },
+  computed: {
+    dogs () {
+      if (this.$store.state.sort) {
+        return [...this.$store.state.dogs].sort((a, b) => {
+          return this.getBreedFromUrl(a).localeCompare(this.getBreedFromUrl(b))
+        })
+      } else {
+        return this.$store.state.dogs
+      }
+    }
+  },
+  methods: {
+    getBreedFromUrl (url) {
+      const rawName = new URL(url).pathname.split('/')[2]
+      return rawName.replace('-', ' ')
+    }
   }
+
 }
 </script>
